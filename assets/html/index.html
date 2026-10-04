@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aero-blue">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Template — Component Library</title>
+
+  <!-- Apply the saved theme before first paint, synchronously, so a
+       returning visitor never sees a flash of the default theme before
+       JS swaps to their saved one. -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("bootstrap-template-theme");
+        if (saved) document.documentElement.setAttribute("data-theme", saved);
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts via <link>, not @import inside index.css: @import can only be
+       discovered after the browser fetches and parses index.css, which
+       serializes the whole chain (HTML -> CSS -> font CSS -> font files).
+       preconnect + link let the font fetch start in parallel instead. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#top"><i class="bi bi-hexagon-fill"></i>Boilerplate</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Menu 1</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#buttons"><i class="bi bi-square me-2"></i>Buttons</a></li>
+              <li><a class="dropdown-item" href="#forms"><i class="bi bi-input-cursor-text me-2"></i>Forms</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#cards"><i class="bi bi-grid-3x3-gap me-2"></i>Cards</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Menu 2</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#tables"><i class="bi bi-table me-2"></i>Tables</a></li>
+              <li><a class="dropdown-item" href="#tabs"><i class="bi bi-folder2-open me-2"></i>Tabs</a></li>
+              <li><a class="dropdown-item" href="#accordion"><i class="bi bi-list-nested me-2"></i>Accordion</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Menu 3</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#feedback"><i class="bi bi-bell me-2"></i>Alerts &amp; Toasts</a></li>
+              <li><a class="dropdown-item" href="#overlays"><i class="bi bi-window-stack me-2"></i>Modals</a></li>
+              <li><a class="dropdown-item" href="#nav-elements"><i class="bi bi-signpost-split me-2"></i>Navigation</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Theme switcher -->
+        <div class="dropdown theme-switcher">
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  data-bs-toggle-tooltip="tooltip" title="Switch theme">
+            <span class="theme-swatch"></span>
+            <span data-theme-label
+                  data-theme-label-slate="Slate"
+                  data-theme-label-aero-blue="Aero Blue"
+                  data-theme-label-dark-mode="Dark Mode"
+                  data-theme-label-baby-pink="Baby Pink"
+                  data-theme-label-lilac="Lilac"
+                  data-theme-label-regal="Regal"
+                  data-theme-label-racing-green="Racing Green"
+                  data-theme-label-orange-black="Orange + Black"
+                  data-theme-label-regal-blue="Regal Blue"
+                  data-theme-label-rose="Rose">Aero Blue</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item theme-option active" href="#" data-theme-value="aero-blue">
+              <span class="theme-swatch theme-swatch-aero-blue me-2"></span>Aero Blue</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="slate">
+              <span class="theme-swatch theme-swatch-slate me-2"></span>Slate</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="dark-mode">
+              <span class="theme-swatch theme-swatch-dark-mode me-2"></span>Dark Mode</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="regal-blue">
+              <span class="theme-swatch theme-swatch-regal-blue me-2"></span>Regal Blue</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="lilac">
+              <span class="theme-swatch theme-swatch-lilac me-2"></span>Lilac</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="rose">
+              <span class="theme-swatch theme-swatch-rose me-2"></span>Rose</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="baby-pink">
+              <span class="theme-swatch theme-swatch-baby-pink me-2"></span>Baby Pink</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="regal">
+              <span class="theme-swatch theme-swatch-regal me-2"></span>Regal</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="racing-green">
+              <span class="theme-swatch theme-swatch-racing-green me-2"></span>Racing Green</a></li>
+            <li><a class="dropdown-item theme-option" href="#" data-theme-value="orange-black">
+              <span class="theme-swatch theme-swatch-orange-black me-2"></span>Orange + Black</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="page-section text-center" id="top">
+    <div class="container">
+      <p class="eyebrow mb-3">Reusable Project Scaffolding</p>
+      <h1 class="display-4 mb-3">One boilerplate, every project.</h1>
+      <p class="lead text-muted-custom mb-5" style="max-width: 42rem; margin-inline: auto;">
+        Bootstrap 5 + Bootstrap Icons, modular CSS by control type, CSS custom
+        properties for theming, and every control this template supports —
+        demonstrated on this one page.
+      </p>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <button class="btn btn-primary btn-lg btn-icon" data-bs-toggle="tooltip" title="This is the primary action style">
+          <i class="bi bi-rocket-takeoff"></i>Get Started
+        </button>
+        <button class="btn btn-secondary btn-lg btn-icon" data-bs-toggle="tooltip" title="This is the secondary action style">
+          <i class="bi bi-book"></i>Read the Docs
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ BUTTONS ============ -->
+  <section class="page-section page-section-alt" id="buttons">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Controls</p>
+        <h2>Buttons</h2>
+        <p>Large and chunky by default. Small variants exist but are the exception, not the rule.</p>
+      </div>
+      <div class="d-flex flex-wrap gap-3 justify-content-center mb-4">
+        <button class="btn btn-primary" data-bs-toggle="tooltip" title="Primary">Primary</button>
+        <button class="btn btn-secondary" data-bs-toggle="tooltip" title="Secondary">Secondary</button>
+        <button class="btn btn-outline-primary" data-bs-toggle="tooltip" title="Outline">Outline</button>
+        <button class="btn btn-success" data-bs-toggle="tooltip" title="Success state">Success</button>
+        <button class="btn btn-warning" data-bs-toggle="tooltip" title="Warning state">Warning</button>
+        <button class="btn btn-danger" data-bs-toggle="tooltip" title="Danger state">Danger</button>
+        <button class="btn btn-info" data-bs-toggle="tooltip" title="Info state">Info</button>
+      </div>
+      <div class="d-flex flex-wrap gap-3 justify-content-center mb-4">
+        <button class="btn btn-primary btn-pill" data-bs-toggle="tooltip" title="Pill shape">
+          <i class="bi bi-check2 me-2"></i>Pill Button
+        </button>
+        <button class="btn btn-secondary" disabled>Disabled</button>
+        <div class="btn-group" role="group">
+          <button class="btn btn-secondary" data-bs-toggle="tooltip" title="Grid view">
+            <i class="bi bi-grid"></i>
+          </button>
+          <button class="btn btn-secondary" data-bs-toggle="tooltip" title="List view">
+            <i class="bi bi-list-ul"></i>
+          </button>
+          <button class="btn btn-secondary" data-bs-toggle="tooltip" title="Table view">
+            <i class="bi bi-table"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CARDS ============ -->
+  <section class="page-section" id="cards">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Layout</p>
+        <h2>Cards</h2>
+        <p>Rounded, bordered, subtle elevation on hover.</p>
+      </div>
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div class="card-custom h-100">
+            <div class="card-body">
+              <div class="icon-tile mb-3"><i class="bi bi-layers"></i></div>
+              <h5 class="card-title">Modular CSS</h5>
+              <p class="card-text">One file per control type, imported through a single index.css.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-custom h-100">
+            <div class="card-body">
+              <div class="icon-tile mb-3"><i class="bi bi-palette"></i></div>
+              <h5 class="card-title">Themeable</h5>
+              <p class="card-text">Every color, radius and shadow is a CSS custom property.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-custom h-100">
+            <div class="card-body">
+              <div class="icon-tile mb-3"><i class="bi bi-shield-check"></i></div>
+              <h5 class="card-title">Vendor-safe</h5>
+              <p class="card-text">Bootstrap core is never edited — only overridden.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-3 col-6">
+          <div class="card-custom card-stat">
+            <div class="stat-value">13</div>
+            <div class="stat-label">CSS modules</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card-custom card-stat">
+            <div class="stat-value">1</div>
+            <div class="stat-label">Flagship theme</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card-custom card-stat">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Bootstrap Icons</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card-custom card-stat">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Inline styles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FORMS ============ -->
+  <section class="page-section page-section-alt" id="forms">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Input</p>
+        <h2>Forms</h2>
+        <p>Consistent focus states, radii, and spacing across every input type.</p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="panel">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <label class="form-label">Project Name</label>
+                <input type="text" class="form-control" placeholder="e.g. Vox" data-bs-toggle="tooltip" title="Enter a project name">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Framework</label>
+                <select class="form-select" data-bs-toggle="tooltip" title="Choose a framework">
+                  <option>Bootstrap 5</option>
+                  <option>Bootstrap 5 + PHP</option>
+                  <option>Bootstrap 5 + Python</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" rows="3" placeholder="What does this project do?"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Launch Readiness</label>
+                <input type="range" class="form-range" data-bs-toggle="tooltip" title="Drag to set readiness">
+              </div>
+              <div class="col-md-6 d-flex align-items-center gap-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" checked>
+                  <label class="form-check-label">Dark surfaces</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="d-flex gap-4 flex-wrap">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tier" checked>
+                    <label class="form-check-label">Personal</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tier">
+                    <label class="form-check-label">Team</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" checked>
+                    <label class="form-check-label">Include tooltips everywhere</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 text-center pt-2">
+                <button class="btn btn-primary btn-lg" type="button">
+                  <i class="bi bi-check2-circle me-2"></i>Save Project
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TABLES ============ -->
+  <section class="page-section" id="tables">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Data</p>
+        <h2>Tables</h2>
+        <p>Bordered container, uppercase headers, hover rows.</p>
+      </div>
+      <div class="table-responsive-wrap">
+        <table class="table table-custom table-striped table-hover mb-0">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Status</th>
+              <th>Theme</th>
+              <th class="text-end">Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><i class="bi bi-folder-fill icon-muted me-2"></i>Vox</td>
+              <td><span class="badge alert-warning-custom badge-custom">On hold</span></td>
+              <td>Regal</td>
+              <td class="text-end">Today</td>
+            </tr>
+            <tr>
+              <td><i class="bi bi-folder-fill icon-muted me-2"></i>Bootstrap Template</td>
+              <td><span class="badge alert-success-custom badge-custom">Active</span></td>
+              <td>Aero Blue</td>
+              <td class="text-end">Today</td>
+            </tr>
+            <tr>
+              <td><i class="bi bi-folder-fill icon-muted me-2"></i>Nursery AI</td>
+              <td><span class="badge alert-info-custom badge-custom">Planning</span></td>
+              <td>—</td>
+              <td class="text-end">This week</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TABS + ACCORDION ============ -->
+  <section class="page-section page-section-alt" id="tabs">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <div class="section-heading text-lg-start">
+            <p class="eyebrow">Organization</p>
+            <h2>Tabs</h2>
+          </div>
+          <ul class="nav nav-tabs-custom" role="tablist">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-overview">Overview</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-usage">Usage</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-notes">Notes</button></li>
+          </ul>
+          <div class="tab-content tab-content-custom">
+            <div class="tab-pane fade show active" id="tab-overview">This template is the canonical starting point for every future Bootstrap project.</div>
+            <div class="tab-pane fade" id="tab-usage">Copy <code>/assets</code> into a new project and swap the content, not the structure.</div>
+            <div class="tab-pane fade" id="tab-notes">Additional themes are added as token overrides on top of an approved flagship theme.</div>
+          </div>
+        </div>
+        <div class="col-lg-6" id="accordion">
+          <div class="section-heading text-lg-start">
+            <p class="eyebrow">Disclosure</p>
+            <h2>Accordion</h2>
+          </div>
+          <!-- No data-bs-parent on any .accordion-collapse: items must
+               never force-close each other, and every item ships expanded
+               (class="show", no "collapsed" on the button) by default. -->
+          <div class="accordion accordion-custom" id="demoAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc1">
+                  Why modular CSS?
+                </button>
+              </h2>
+              <div id="acc1" class="accordion-collapse collapse show">
+                <div class="accordion-body">So a new control type gets its own file, not a monolithic stylesheet edit.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acc2">
+                  Why CSS variables?
+                </button>
+              </h2>
+              <div id="acc2" class="accordion-collapse collapse show">
+                <div class="accordion-body">So a new theme is a token swap, never a rewrite of every component file.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ALERTS / TOASTS / BADGES ============ -->
+  <section class="page-section" id="feedback">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Feedback</p>
+        <h2>Alerts, Badges &amp; Progress</h2>
+      </div>
+      <div class="row g-3 mb-5">
+        <div class="col-md-6">
+          <div class="alert-custom alert-success-custom"><i class="bi bi-check-circle-fill"></i>Theme saved successfully.</div>
+        </div>
+        <div class="col-md-6">
+          <div class="alert-custom alert-warning-custom"><i class="bi bi-exclamation-triangle-fill"></i>Nine themes still pending review.</div>
+        </div>
+        <div class="col-md-6">
+          <div class="alert-custom alert-danger-custom"><i class="bi bi-x-circle-fill"></i>Do not edit vendor Bootstrap files.</div>
+        </div>
+        <div class="col-md-6">
+          <div class="alert-custom alert-info-custom"><i class="bi bi-info-circle-fill"></i>Default theme is Aero Blue.</div>
+        </div>
+      </div>
+      <div class="row align-items-center g-4">
+        <div class="col-md-6">
+          <p class="eyebrow mb-2">Progress</p>
+          <div class="progress-custom mb-2"><div class="progress-bar progress-w-75"></div></div>
+          <span class="text-faint">Phase One: 75% complete</span>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <span class="badge alert-success-custom badge-custom me-2">Approved</span>
+          <span class="badge alert-info-custom badge-custom me-2">In review</span>
+          <span class="badge alert-warning-custom badge-custom">Pending</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MODAL / NAV ELEMENTS ============ -->
+  <section class="page-section page-section-alt" id="overlays">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Overlays &amp; Navigation</p>
+        <h2>Modals, Breadcrumbs &amp; Pagination</h2>
+      </div>
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-4 text-center">
+          <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#demoModal">
+            <i class="bi bi-window-stack me-2"></i>Open Modal
+          </button>
+        </div>
+        <div class="col-lg-8" id="nav-elements">
+          <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb breadcrumb-custom mb-0">
+              <li class="breadcrumb-item"><a href="#">Projects</a></li>
+              <li class="breadcrumb-item"><a href="#">Bootstrap</a></li>
+              <li class="breadcrumb-item active">Component Library</li>
+            </ol>
+          </nav>
+          <nav aria-label="pagination">
+            <ul class="pagination pagination-custom mb-0">
+              <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal markup -->
+  <div class="modal fade modal-custom" id="demoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Theme</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          This is the modal/dialog style used across the template — same radius scale, same border, same surface tokens as every other panel.
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-4">
+    <div class="toast toast-custom" role="status">
+      <div class="toast-header">
+        <i class="bi bi-hexagon-fill me-2 text-accent"></i>
+        <strong class="me-auto">Boilerplate</strong>
+        <small class="text-faint">now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+      </div>
+      <div class="toast-body">Template loaded on the Aero Blue theme.</div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer-custom">
+    <div class="container">
+      <p class="mb-1"><i class="bi bi-hexagon-fill text-accent me-2"></i>Bootstrap Template</p>
+      <p class="mb-0 text-faint">Modular CSS · Bootstrap 5.3.8 · Bootstrap Icons · Space Grotesk / Inter</p>
+    </div>
+  </footer>
+
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/theme-switcher.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      new bootstrap.Toast(document.querySelector(".toast-custom")).show();
+    });
+  </script>
+</body>
+</html>

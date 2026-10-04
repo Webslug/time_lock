@@ -1,0 +1,419 @@
+/* ==========================================================================
+   Design tokens — Slate (default theme)
+   Anchor: restrained dark UI in the vein of GitHub / Linear / Stripe —
+   neutral surfaces, one confident accent color, generous spacing, no
+   gradients or decoration doing the work that contrast and spacing should.
+   Every other theme overrides only these custom properties, scoped under
+   [data-theme="..."] on <html>. Never restate component rules per theme.
+   ========================================================================== */
+
+:root,
+[data-theme="slate"] {
+  /* Surfaces */
+  --bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.3 0 0 0 -0.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(168deg, rgba(255, 255, 255, 0.022) 0px, rgba(255, 255, 255, 0.022) 1px, transparent 1px, transparent 9px, rgba(0, 0, 0, 0.05) 9px, rgba(0, 0, 0, 0.05) 11px, transparent 11px, transparent 23px),
+    linear-gradient(155deg, #2b3034 0%, #1f2326 50%, #272c30 100%);
+  --surface: #2d3337;
+  --surface-alt: #353c41;
+  --surface-raised: #3c4449;
+  --border: #485056;
+  --border-strong: #5b656c;
+
+  /* Text */
+  --text: #e6eaec;
+  --text-muted: #aab3b9;
+  --text-faint: #78838a;
+  --text-on-accent: #10181d;
+
+  /* Accent */
+  --accent: #86a8bb;
+  --accent-hover: #a3c0cf;
+  --accent-active: #6f93a8;
+  --accent-soft: rgba(134, 168, 187, 0.16);
+  --accent-border: rgba(134, 168, 187, 0.45);
+
+  /* Semantic */
+  --success: #3fb950;
+  --success-soft: rgba(63, 185, 80, 0.14);
+  --warning: #d29922;
+  --warning-soft: rgba(210, 153, 34, 0.14);
+  --danger: #f85149;
+  --danger-soft: rgba(248, 81, 73, 0.14);
+  --info: #58a6ff;
+  --info-soft: rgba(88, 166, 255, 0.14);
+
+  /* Typography */
+  --font-heading: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+
+  /* Radii — rounded everywhere except the navbar, per AGENTS.md */
+  --radius-sm: 6px;
+  --radius: 9px;
+  --radius-lg: 13px;
+  --radius-pill: 999px;
+  --radius-navbar: 0px;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45);
+
+  /* Motion */
+  --transition-fast: 120ms ease;
+  --transition: 200ms ease;
+
+  /* Bevel — raised (buttons, cards, badges, tabs, dialogs) and recessed
+     (form fields) edge treatments. Each theme overrides only the four
+     raw --bevel-* colors below; the composite --bevel-shadow-* tokens
+     are defined once here and recompute automatically per theme because
+     var() references resolve at used-value time, not definition time. */
+  --bevel-top: rgba(255, 255, 255, 0.07);
+  --bevel-bottom: rgba(0, 0, 0, 0.35);
+  --bevel-top-hover: rgba(255, 255, 255, 0.12);
+  --bevel-bottom-hover: rgba(0, 0, 0, 0.45);
+
+  /* Raised: a top-edge highlight only (never a bottom inset line — that
+     would sit right against border-bottom and read as a double border),
+     plus an outer drop shadow to carry the "lifted" weight underneath. */
+  --bevel-shadow: inset 0 1px 0 var(--bevel-top), var(--shadow-sm);
+  --bevel-shadow-hover: inset 0 1px 0 var(--bevel-top-hover), var(--shadow);
+
+  /* Recessed: a single top-inset shadow suggesting a sunken slot. */
+  --bevel-shadow-inset: inset 0 1px 3px var(--bevel-bottom);
+  --bevel-shadow-inset-hover: inset 0 1px 4px var(--bevel-bottom-hover);
+}
+
+/* Slate: a chiselled stone edge, a touch stronger than the shared bevel. */
+[data-theme="slate"] {
+  --bevel-top: rgba(255, 255, 255, 0.1);
+  --bevel-bottom: rgba(0, 0, 0, 0.5);
+  --bevel-top-hover: rgba(255, 255, 255, 0.16);
+}
+
+/* ==========================================================================
+   Theme overrides — each theme swaps ONLY color tokens (surfaces, text,
+   accent, semantic). Radii, spacing, fonts, shadow and motion are shared
+   from :root above and never restated here. Dark themes reuse the same
+   semantic (success/warning/danger/info) set as Slate; Baby Pink is the
+   one light theme and gets its own accessible light semantic set.
+   ========================================================================== */
+
+/* Aero Blue — Windows Vista Aero: light sky-gradient background, glass
+   surfaces (translucent + blurred, see the backdrop-filter rules colocated
+   in navbar.css/cards.css/etc.), glossy buttons. The one theme where --bg
+   is a gradient rather than a flat color — body's rule uses the `background`
+   shorthand (not background-color) specifically so this works. */
+[data-theme="aero-blue"] {
+  --bg: linear-gradient(180deg, #bfe3fb 0%, #dff0fc 40%, #f5fbff 75%, #ffffff 100%);
+  --surface: rgba(255, 255, 255, 0.55);
+  --surface-alt: rgba(223, 242, 253, 0.6);
+  --surface-raised: rgba(255, 255, 255, 0.78);
+  --border: rgba(255, 255, 255, 0.65);
+  --border-strong: rgba(90, 155, 205, 0.5);
+
+  --text: #11304f;
+  --text-muted: #45607a;
+  --text-faint: #7c93a8;
+  --text-on-accent: #ffffff;
+
+  --accent: #2f8fd6;
+  --accent-hover: #4aa8ea;
+  --accent-active: #1f74b5;
+  --accent-soft: rgba(47, 143, 214, 0.16);
+  --accent-border: rgba(47, 143, 214, 0.45);
+
+  /* Light-mode semantic set, same reasoning as Baby Pink */
+  --success: #1a7f37; --success-soft: rgba(26, 127, 55, 0.12);
+  --warning: #9a6700; --warning-soft: rgba(154, 103, 0, 0.12);
+  --danger: #cf222e;  --danger-soft: rgba(207, 34, 46, 0.12);
+  --info: #0969da;    --info-soft: rgba(9, 105, 218, 0.12);
+
+  /* Glass bevel: white highlight, ink-based lowlight (same reasoning as
+     Baby Pink's override) */
+  --bevel-top: rgba(255, 255, 255, 0.95);
+  --bevel-bottom: rgba(17, 48, 79, 0.14);
+  --bevel-top-hover: rgba(255, 255, 255, 1);
+  --bevel-bottom-hover: rgba(17, 48, 79, 0.22);
+}
+
+/* Dark Mode — built for the tired-eyes coder, not for looking dramatic in
+   a screenshot. Pure black + pure white + a blue-heavy accent (the
+   previous #050506 / #f2f2f4 / cyan) is the actual worst combination for
+   eye strain: max contrast causes glare/halation, and blue wavelengths
+   are the specific ones that fatigue tired eyes most. Anchored instead to
+   the Gruvbox/Solarized school of "designed for long sessions": warm
+   off-black (never pure black), warm off-white (never pure white), and
+   an accent shifted from cyan to amber — same reason night-shift/f.lux
+   color-temperature filters exist. */
+[data-theme="dark-mode"] {
+  --bg: #1b1a17;
+  --surface: #232120;
+  --surface-alt: #2b2926;
+  --surface-raised: #33302c;
+  --border: #3a3733;
+  --border-strong: #48443e;
+
+  --text: #ebe4d8;
+  --text-muted: #a89e8e;
+  --text-faint: #6f6759;
+  --text-on-accent: #1f1607;
+
+  --accent: #e0a458;
+  --accent-hover: #edbb7a;
+  --accent-active: #c4883f;
+  --accent-soft: rgba(224, 164, 88, 0.14);
+  --accent-border: rgba(224, 164, 88, 0.4);
+
+  --success: #a3c15e; --success-soft: rgba(163, 193, 94, 0.14);
+  --warning: #d29922; --warning-soft: rgba(210, 153, 34, 0.14);
+  --danger: #e0715a;  --danger-soft: rgba(224, 113, 90, 0.14);
+  --info: #7ba9c9;    --info-soft: rgba(123, 169, 201, 0.14);
+}
+
+/* Baby Pink — the one LIGHT theme (explicit requirement) */
+/* Strawberry milk / bubblegum — sweeter and more saturated than the
+   previous dusty-mauve pass, per Kim: correct color family, but didn't
+   invoke "yummy, want to eat it." A warm cream-pink background (like
+   strawberry-milk itself, not a cool clinical white) plus a genuinely
+   vivid candy-pink accent instead of a muted pastel. */
+[data-theme="baby-pink"] {
+  --bg: #fff0f5;
+  --surface: #fffbfc;
+  --surface-alt: #ffe3ee;
+  --surface-raised: #ffffff;
+  --border: #ffcfe3;
+  --border-strong: #ffabcf;
+
+  --text: #4a1730;
+  --text-muted: #8a4468;
+  --text-faint: #b97a9c;
+  /* Sweet, saturated bubblegum/strawberry pink — dark ink still reads
+     better on it than white */
+  --text-on-accent: #4a1730;
+
+  --accent: #ff7ab8;
+  --accent-hover: #ff9ecb;
+  --accent-active: #f2549e;
+  --accent-soft: rgba(255, 122, 184, 0.2);
+  --accent-border: rgba(255, 122, 184, 0.45);
+
+  /* Light-theme bevel: a white top-highlight is invisible on a white card,
+     so raised elements (--bevel-shadow = top-highlight + --shadow-sm) lean
+     entirely on the drop shadow for definition — --shadow-sm/--shadow are
+     overridden here, stronger and ink-tinted, specifically because the
+     :root defaults (built for dark surfaces) read as barely-there on white. */
+  --bevel-top: rgba(255, 255, 255, 0.9);
+  --bevel-bottom: rgba(58, 23, 40, 0.18);
+  --bevel-top-hover: rgba(255, 255, 255, 1);
+  --bevel-bottom-hover: rgba(58, 23, 40, 0.28);
+  --shadow-sm: 0 2px 6px rgba(58, 23, 40, 0.14);
+  --shadow: 0 8px 22px rgba(58, 23, 40, 0.18);
+
+  /* Accessible light-mode semantic set (Primer-light-derived, not Slate's dark set) */
+  --success: #1a7f37; --success-soft: rgba(26, 127, 55, 0.12);
+  --warning: #9a6700; --warning-soft: rgba(154, 103, 0, 0.12);
+  --danger: #cf222e;  --danger-soft: rgba(207, 34, 46, 0.12);
+  --info: #0969da;    --info-soft: rgba(9, 105, 218, 0.12);
+}
+
+/* Lilac — comfort + hot chocolate: warm cocoa-brown surfaces (not a cool
+   violet-black) with a soft mauve-lilac accent, aiming for a cozy,
+   feminine feel rather than the previous saturated "grape soda" purple. */
+[data-theme="lilac"] {
+  --bg: #1c1512;
+  --surface: #251c17;
+  --surface-alt: #2e231d;
+  --surface-raised: #382b23;
+  --border: #40312a;
+  --border-strong: #4f3c32;
+
+  --text: #f1e6de;
+  --text-muted: #c3a696;
+  --text-faint: #8c7364;
+  --text-on-accent: #2b1830;
+
+  --accent: #bb92d6;
+  --accent-hover: #d2b2e6;
+  --accent-active: #9c6fbb;
+  --accent-soft: rgba(187, 146, 214, 0.16);
+  --accent-border: rgba(187, 146, 214, 0.42);
+
+  --success: #3fb950; --success-soft: rgba(63, 185, 80, 0.14);
+  --warning: #d29922; --warning-soft: rgba(210, 153, 34, 0.14);
+  --danger: #f85149;  --danger-soft: rgba(248, 81, 73, 0.14);
+  --info: #58a6ff;    --info-soft: rgba(88, 166, 255, 0.14);
+}
+
+/* Regal — dark red + gold. Kim's read on the first pass: worst of the
+   set, the gold ring around the primary button looked "weird," not
+   majestic. Reworked on two changes: (1) every bordered control gets a
+   soft gold hairline via --border/--border-strong themselves — the whole
+   structure is trimmed in gold, not just one button — and (2) the primary
+   button drops the hard-edged gold ring for a velvet crimson gradient
+   with a soft gold glow and gold text instead (see buttons.css). */
+[data-theme="regal"] {
+  --bg: #120707;
+  --surface: #1c0d0d;
+  --surface-alt: #261211;
+  --surface-raised: #301715;
+  --border: rgba(212, 175, 55, 0.22);
+  --border-strong: rgba(212, 175, 55, 0.42);
+
+  --text: #f3e6d8;
+  --text-muted: #c2a082;
+  --text-faint: #8a6a52;
+  --text-on-accent: #241505;
+
+  --accent: #d4af37;
+  --accent-hover: #e6c866;
+  --accent-active: #b8952b;
+  --accent-soft: rgba(212, 175, 55, 0.14);
+  --accent-border: rgba(212, 175, 55, 0.4);
+
+  /* A second, named color: the theme is Gold AND Red — gold alone (the
+     lone --accent above) reads as just "gold", so the primary button
+     below is deliberately overridden to a deep crimson with a gold rim,
+     the actual monarch's-cloak combination, instead of leaving red as a
+     background tint nobody sees. */
+  --regal-red: #8a1220;
+  --regal-red-hover: #a3182b;
+  --regal-red-active: #6e0e19;
+
+  --success: #3fb950; --success-soft: rgba(63, 185, 80, 0.14);
+  --warning: #d29922; --warning-soft: rgba(210, 153, 34, 0.14);
+  --danger: #b3222f;  --danger-soft: rgba(179, 34, 47, 0.16);
+  --info: #58a6ff;    --info-soft: rgba(88, 166, 255, 0.14);
+}
+
+/* Racing Green — dark, British Racing Green accent */
+[data-theme="racing-green"] {
+  --bg: #081410;
+  --surface: #0e1f18;
+  --surface-alt: #142a20;
+  --surface-raised: #1a3528;
+  --border: #1e3d2c;
+  --border-strong: #2b4d3a;
+
+  --text: #e6f2ea;
+  --text-muted: #9dbfab;
+  --text-faint: #648873;
+  --text-on-accent: #04150c;
+
+  --accent: #2f6b45;
+  --accent-hover: #3f9760;
+  --accent-active: #24532f;
+  --accent-soft: rgba(47, 107, 69, 0.16);
+  --accent-border: rgba(47, 107, 69, 0.45);
+
+  --success: #3fb950; --success-soft: rgba(63, 185, 80, 0.14);
+  --warning: #d29922; --warning-soft: rgba(210, 153, 34, 0.14);
+  --danger: #f85149;  --danger-soft: rgba(248, 81, 73, 0.14);
+  --info: #58a6ff;    --info-soft: rgba(88, 166, 255, 0.14);
+
+  /* Higher-density bevel: the deep green swallows a subtle edge, so this
+     theme gets a stronger highlight/lowlight contrast and a heavier drop
+     shadow than every other dark theme (--shadow-sm/--shadow are normally
+     :root-global — overriding them here only affects Racing Green, since
+     --bevel-shadow resolves them at used-value time). */
+  --bevel-top: rgba(255, 255, 255, 0.16);
+  --bevel-bottom: rgba(0, 0, 0, 0.55);
+  --bevel-top-hover: rgba(255, 255, 255, 0.26);
+  --bevel-bottom-hover: rgba(0, 0, 0, 0.65);
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.5);
+  --shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+}
+
+/* Orange + Black */
+[data-theme="orange-black"] {
+  --bg: #0a0a0a;
+  --surface: #131313;
+  --surface-alt: #1c1c1c;
+  --surface-raised: #242424;
+  --border: #2b2b2b;
+  --border-strong: #383838;
+
+  --text: #f5f1ec;
+  --text-muted: #b3aca3;
+  --text-faint: #756e66;
+  --text-on-accent: #1a0900;
+
+  --accent: #f97316;
+  --accent-hover: #fb923c;
+  --accent-active: #ea580c;
+  --accent-soft: rgba(249, 115, 22, 0.14);
+  --accent-border: rgba(249, 115, 22, 0.4);
+
+  --success: #3fb950; --success-soft: rgba(63, 185, 80, 0.14);
+  --warning: #d29922; --warning-soft: rgba(210, 153, 34, 0.14);
+  --danger: #f85149;  --danger-soft: rgba(248, 81, 73, 0.14);
+  --info: #58a6ff;    --info-soft: rgba(88, 166, 255, 0.14);
+}
+
+/* Regal Blue — an admiral's dress uniform: steel and sapphire, not a
+   bright corporate blue. Kim: the right family but missing the
+   "masculine, in charge" authority. Two changes, mirroring what worked
+   for Regal (gold trim everywhere via --border): (1) --border/-strong get
+   a cool steel-silver hairline instead of plain navy, trimming the whole
+   structure the way braid trims a uniform, and (2) the accent is deepened
+   and desaturated toward a commanding, muted sapphire rather than a
+   bright cobalt — authority reads as restraint and weight, not brightness. */
+[data-theme="regal-blue"] {
+  --bg: #05070f;
+  --surface: #0c1120;
+  --surface-alt: #121a2e;
+  --surface-raised: #182238;
+  --border: rgba(148, 163, 184, 0.2);
+  --border-strong: rgba(148, 163, 184, 0.4);
+
+  --text: #e6ebf7;
+  --text-muted: #9aa8c4;
+  --text-faint: #61708f;
+  --text-on-accent: #050a18;
+
+  --accent: #3d5a94;
+  --accent-hover: #5273ad;
+  --accent-active: #2c4270;
+  --accent-soft: rgba(61, 90, 148, 0.18);
+  --accent-border: rgba(148, 163, 184, 0.4);
+
+  --success: #3fb950; --success-soft: rgba(63, 185, 80, 0.14);
+  --warning: #d29922; --warning-soft: rgba(210, 153, 34, 0.14);
+  --danger: #f85149;  --danger-soft: rgba(248, 81, 73, 0.14);
+  --info: #58a6ff;    --info-soft: rgba(88, 166, 255, 0.14);
+}
+
+/* Rose — dark, moody rose accent (distinct from the light Baby Pink theme) */
+[data-theme="rose"] {
+  --bg: #150a0d;
+  --surface: #1f1116;
+  --surface-alt: #29161d;
+  --surface-raised: #331b23;
+  --border: #3d2129;
+  --border-strong: #4f2b35;
+
+  --text: #f5e6ea;
+  --text-muted: #c199a6;
+  --text-faint: #856471;
+  --text-on-accent: #2a0e17;
+
+  /* Deeper wine-red rose, pushed further toward red per Kim's feedback
+     that the muted mauve pass still didn't read as "rose" enough. */
+  --accent: #9c2d43;
+  --accent-hover: #b8425a;
+  --accent-active: #7c2035;
+  --accent-soft: rgba(156, 45, 67, 0.18);
+  --accent-border: rgba(156, 45, 67, 0.45);
+
+  --success: #3fb950; --success-soft: rgba(63, 185, 80, 0.14);
+  --warning: #d29922; --warning-soft: rgba(210, 153, 34, 0.14);
+  --danger: #f85149;  --danger-soft: rgba(248, 81, 73, 0.14);
+  --info: #58a6ff;    --info-soft: rgba(88, 166, 255, 0.14);
+}

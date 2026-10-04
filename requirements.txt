@@ -1,0 +1,7 @@
+# Time Lock needs Python 3.10 or newer (tested on 3.10.12).
+# Install with:  pip install -r requirements.txt
+Flask>=3.0,<4
+
+# Optional. Lets png, webp, gif and bmp pictures be converted to jpg when locked.
+# Without it, only jpg pictures can be locked.
+Pillow>=10.0

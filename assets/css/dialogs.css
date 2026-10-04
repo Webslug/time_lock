@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Modals / Dialogs
+   ========================================================================== */
+
+.modal-custom .modal-content {
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--bevel-shadow), var(--shadow-lg);
+}
+
+.modal-custom .modal-header {
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-4);
+}
+
+.modal-custom .modal-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.modal-custom .modal-body {
+  padding: var(--space-4);
+  color: var(--text-muted);
+}
+
+.modal-custom .modal-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--space-4);
+}
+
+.modal-custom .btn-close {
+  filter: invert(1) grayscale(1) brightness(1.8);
+}
+
+/* Aero Blue glass */
+[data-theme="aero-blue"] .modal-custom .modal-content {
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/* Light themes: Bootstrap's close icon is already dark — inverting it
+   (the default rule above, tuned for dark surfaces) would make it white
+   on a light surface and invisible. */
+[data-theme="aero-blue"] .modal-custom .btn-close,
+[data-theme="baby-pink"] .modal-custom .btn-close {
+  filter: none;
+}
+
+.offcanvas-custom {
+  background-color: var(--surface-raised);
+  border-color: var(--border);
+}
+
+.offcanvas-custom .offcanvas-header {
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---- Roomy "Lock something" window ---- */
+.modal-wide {
+  max-width: min(96vw, 1400px);
+}
+
+.modal-body-roomy {
+  padding: var(--space-4) var(--space-5);
+}
+
+.modal-wide .modal-header,
+.modal-wide .modal-footer {
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
+}
+
+.modal-wide .modal-header .btn-close {
+  margin-left: 0;
+}

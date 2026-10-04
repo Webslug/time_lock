@@ -1,0 +1,57 @@
+/* ==========================================================================
+   Lists: folder browser in the Add window, status banners
+   ========================================================================== */
+
+.browse-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-alt);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.browse-places {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.browse-places .btn {
+  min-width: 7.5rem;
+}
+
+.browse-path {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  word-break: break-all;
+  margin-bottom: var(--space-2);
+}
+
+.browse-list {
+  --bs-list-group-bg: var(--surface);
+  --bs-list-group-color: var(--text);
+  --bs-list-group-border-color: var(--border);
+  --bs-list-group-action-color: var(--text);
+  --bs-list-group-action-hover-color: var(--text);
+  --bs-list-group-action-hover-bg: var(--accent-soft);
+  --bs-list-group-action-active-bg: var(--accent-soft);
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.browse-list .list-group-item {
+  cursor: pointer;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.95rem;
+}
+
+.browse-list .list-group-item:hover {
+  background-color: var(--accent-soft);
+}
+
+.volume-range {
+  max-width: 14rem;
+}

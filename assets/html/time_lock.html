@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aero-blue">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Lock</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/heart.ico') }}">
+
+  <meta name="timelock-token" content="{{ token }}">
+  <script src="{{ url_for('static', filename='js/theme-init.js') }}"></script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body data-default-seconds="{{ default_seconds }}" data-long-seconds="{{ long_seconds }}"
+      data-test-mode="{{ 'true' if test_mode else 'false' }}"
+      data-debug="{{ 'true' if debug_mode else 'false' }}">
+
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container-fluid wide-90">
+      <a class="navbar-brand" href="/" data-bs-toggle="tooltip" title="Time Lock home">
+        <i class="bi bi-hourglass-split"></i>Time Lock</a>
+      <span class="clock-badge ms-auto me-3" id="clockBadge" tabindex="0" role="img"
+            aria-label="Checking the time source" data-bs-toggle="tooltip" title="Checking the time source">
+        <i class="bi bi-clock" id="clockIcon"></i></span>
+      <button class="btn btn-primary" id="openAdd" data-bs-toggle="tooltip"
+              title="Lock a new piece of text or a picture until a date you choose">
+        <i class="bi bi-lock-fill me-1"></i>Lock something</button>
+      <button class="btn btn-secondary ms-2" id="openSettings" data-bs-toggle="tooltip"
+              title="Time source, sound and default lock length">
+        <i class="bi bi-gear-fill me-1"></i>Settings</button>
+      <div class="dropdown theme-switcher ms-3">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                title="Change the colours">
+          <span class="theme-swatch"></span>
+          <span data-theme-label data-theme-label-aero-blue="Aero Blue" data-theme-label-slate="Slate"
+                data-theme-label-dark-mode="Dark Mode" data-theme-label-baby-pink="Baby Pink"
+                data-theme-label-lilac="Lilac" data-theme-label-regal="Regal"
+                data-theme-label-racing-green="Racing Green" data-theme-label-orange-black="Orange + Black"
+                data-theme-label-regal-blue="Regal Blue" data-theme-label-rose="Rose">Aero Blue</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          {% for value, name in [('aero-blue','Aero Blue'),('slate','Slate'),('dark-mode','Dark Mode'),('regal-blue','Regal Blue'),('lilac','Lilac'),('rose','Rose'),('baby-pink','Baby Pink'),('regal','Regal'),('racing-green','Racing Green'),('orange-black','Orange + Black')] %}
+          <li><a class="dropdown-item theme-option" href="#" data-theme-value="{{ value }}">
+            <span class="theme-swatch theme-swatch-{{ value }} me-2"></span>{{ name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wide-90 page-main">
+    <div id="statusBanners"></div>
+    <div id="alerts"></div>
+
+    <section class="panel mb-4" id="upcomingPanel">
+      <h2 class="h4 mb-3"><i class="bi bi-hourglass-split me-2"></i>Upcoming unlocks</h2>
+      <div class="table-responsive">
+        <table class="table align-middle" id="upcomingTable">
+          <thead>
+            <tr>
+              <th>Name</th><th>Type</th><th>Locked on</th><th>Unlocks</th><th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="upcomingBody"></tbody>
+        </table>
+      </div>
+      <p class="text-muted empty-note" id="upcomingEmpty">Nothing is locked yet. Press "Lock something" to begin.</p>
+    </section>
+
+    <section class="panel mb-5" id="unlockedPanel">
+      <div class="d-flex align-items-center mb-3">
+        <h2 class="h4 mb-0"><i class="bi bi-unlock-fill me-2"></i>Unlocked</h2>
+        <button class="btn btn-secondary btn-sm ms-auto d-none" id="panicBtn"
+                title="Lock everything that is unlocked again, for a period you choose">
+          <i class="bi bi-shield-lock-fill me-1"></i>Panic seal</button>
+      </div>
+      <div class="row g-3" id="unlockedBody"></div>
+      <p class="text-muted empty-note" id="unlockedEmpty">Nothing has unlocked yet.</p>
+    </section>
+  </main>
+
+  <!-- Add modal -->
+  <div class="modal fade modal-custom" id="addModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-wide modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-lock-fill me-2"></i>Lock something</h5>
+          <button type="button" class="btn btn-secondary btn-sm ms-auto me-3" id="dareBtn"
+                  title="Not sure what to lock? Get a random dare, and the time is set for you.">
+            <i class="bi bi-dice-3-fill me-1"></i>Dare me</button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" title="Close without locking"></button>
+        </div>
+        <div class="modal-body modal-body-roomy">
+          <div class="row g-5">
+
+            <div class="col-lg-5">
+              <h6 class="section-title"><span class="step-badge">1</span>What to lock</h6>
+              <label class="form-label" for="itemLabel">Name (shown in the list, so keep it vague)</label>
+              <input class="form-control mb-4" id="itemLabel" maxlength="80" placeholder="For example: Wifi password"
+                     data-bs-toggle="tooltip" title="A short name you will recognise. Do not put the secret here.">
+
+              <ul class="nav nav-tabs mb-4" role="tablist">
+                <li class="nav-item"><button class="nav-link active" id="tabTextBtn" data-bs-toggle="tab"
+                    data-bs-target="#tabText" type="button" title="Lock a piece of text">
+                    <i class="bi bi-fonts me-1"></i>Text</button></li>
+                <li class="nav-item"><button class="nav-link" id="tabImageBtn" data-bs-toggle="tab"
+                    data-bs-target="#tabImage" type="button" title="Lock a picture">
+                    <i class="bi bi-image me-1"></i>Image</button></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="tabText">
+                  <textarea class="form-control" id="itemText" rows="9" placeholder="Type the text to lock"
+                            title="This text will be hidden until the unlock time"></textarea>
+                </div>
+                <div class="tab-pane fade" id="tabImage">
+                  <label class="form-label" for="itemPath">Picture on this computer</label>
+                  <div class="input-group mb-3">
+                    <input class="form-control" id="itemPath" placeholder="Choose with Browse, or type the path"
+                           title="The full path of the picture, so the original can be deleted afterwards">
+                    <button class="btn btn-secondary" type="button" id="openBrowse"
+                            title="Look through the folders on this computer for a picture">
+                      <i class="bi bi-folder2-open me-1"></i>Browse</button>
+                  </div>
+                  <div class="form-check mb-1">
+                    <input class="form-check-input" type="checkbox" id="deleteSource" checked
+                           title="After the picture is safely locked and checked, the original file is deleted">
+                    <label class="form-check-label" for="deleteSource">
+                      Delete the original picture after it has been locked</label>
+                  </div>
+                  <div class="form-text mb-3" id="deleteNote">Only works for a picture chosen with Browse
+                    or typed as a path.</div>
+
+                  <div class="browse-panel d-none" id="browsePanel">
+                    <div class="browse-places" id="browsePlaces"></div>
+                    <div class="browse-path" id="browsePath"></div>
+                    <div class="list-group browse-list" id="browseList"></div>
+                  </div>
+
+                  <label class="form-label" for="itemFile">Or upload from the browser</label>
+                  <input class="form-control" type="file" id="itemFile" accept="image/*"
+                         title="Upload instead. The original cannot be deleted automatically this way">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-7">
+              <h6 class="section-title"><span class="step-badge">2</span>When to unlock</h6>
+              <div class="unlock-summary mb-3">
+                <span class="text-muted">Unlocks on</span>
+                <strong id="unlockSummary" class="text-accent"></strong>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-7">
+                  <div id="calendar" class="calendar"></div>
+                </div>
+                <div class="col-md-5">
+                  <div class="time-row mb-3" id="timeRow">
+                    <label class="form-label mb-0" for="unlockTime"><i class="bi bi-clock me-1"></i>Time of day</label>
+                    <input type="time" class="form-control time-input" id="unlockTime" step="60"
+                           title="Choose the hour and minute the item unlocks">
+                  </div>
+                  <div class="preset-row" id="presets">
+                    <button class="btn btn-secondary btn-sm" type="button" data-minutes="2" title="Unlock 2 minutes from now">In 2 min</button>
+                    <button class="btn btn-secondary btn-sm" type="button" data-minutes="5" title="Unlock 5 minutes from now">In 5 min</button>
+                    <button class="btn btn-secondary btn-sm" type="button" data-minutes="10" title="Unlock 10 minutes from now">In 10 min</button>
+                    <button class="btn btn-secondary btn-sm" type="button" data-minutes="60" title="Unlock 1 hour from now">In 1 hour</button>
+                    <button class="btn btn-secondary btn-sm" type="button" id="resetWeek"
+                            title="Set the unlock time back to the default length">
+                      <i class="bi bi-arrow-counterclockwise me-1"></i>Default</button>
+                    <button class="btn btn-secondary btn-sm" type="button" id="randomBtn"
+                            title="Let fate decide. The unlock moment is chosen at random and nobody will know when.">
+                      <i class="bi bi-dice-5-fill me-1"></i>Random</button>
+                    <span class="test-presets" id="testPresets">
+                      <button class="btn btn-secondary btn-sm" type="button" data-seconds="10" title="Testing: unlock in 10 seconds">10s</button>
+                      <button class="btn btn-secondary btn-sm" type="button" data-seconds="30" title="Testing: unlock in 30 seconds">30s</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer add-footer">
+          <div class="alert alert-info add-error me-auto d-none" id="dareNote" role="status"></div>
+          <div class="alert alert-danger add-error me-auto d-none" id="addError" role="alert"></div>
+          <button class="btn btn-secondary" data-bs-dismiss="modal" title="Close without locking">Cancel</button>
+          <button class="btn btn-primary" id="submitAdd" title="Encrypt and store it. This cannot be undone.">
+            <i class="bi bi-lock-fill me-1"></i>Lock it away</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm: long lock -->
+  <div class="modal fade modal-custom" id="longModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill me-2"></i>That is a long time</h5></div>
+      <div class="modal-body" id="longText">You are locking this for more than 30 days. Nobody can open it sooner,
+        not even you. Are you sure?</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" title="Go back and pick a nearer date">Go back</button>
+        <button class="btn btn-danger" id="confirmLong" title="Yes, lock it for this long">Yes, lock it</button>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Confirm: reveal -->
+  <div class="modal fade modal-custom" id="revealModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title"><i class="bi bi-eye-fill me-2"></i>Reveal the unlock date</h5></div>
+      <div class="modal-body">Are you sure you wish to reveal the unlock date for this item, this will add an extra {{ reveal_hours }} hours onto the lock time?</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" title="Keep the date hidden">No, keep it hidden</button>
+        <button class="btn btn-danger" id="confirmReveal" title="Reveal the date and add 48 hours">Yes, reveal it</button>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Lock longer -->
+  <div class="modal fade modal-custom" id="extendModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title"><i class="bi bi-plus-circle-fill me-2"></i>Lock longer</h5></div>
+      <div class="modal-body">
+        <p>Add more time to <strong id="extendName"></strong>. Time can be added, never taken away.</p>
+        <div class="preset-row mb-3" id="extendPresets">
+          <button class="btn btn-secondary btn-sm" type="button" data-seconds="3600" title="Add one hour">+1 hour</button>
+          <button class="btn btn-secondary btn-sm" type="button" data-seconds="86400" title="Add one day">+1 day</button>
+          <button class="btn btn-secondary btn-sm" type="button" data-seconds="604800" title="Add one week">+1 week</button>
+          <button class="btn btn-secondary btn-sm" type="button" data-seconds="2592000" title="Add 30 days">+30 days</button>
+        </div>
+        <div class="input-group">
+          <input type="number" min="1" class="form-control" id="extendAmount" value="1"
+                 title="How many to add">
+          <select class="form-select" id="extendUnit" title="Minutes, hours, days or weeks">
+            <option value="60">minutes</option><option value="3600">hours</option>
+            <option value="86400" selected>days</option><option value="604800">weeks</option>
+          </select>
+        </div>
+        <div class="alert alert-danger mt-3 d-none" id="extendError" role="alert"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" title="Leave the lock as it is">Cancel</button>
+        <button class="btn btn-primary" id="confirmExtend" title="Add this much time to the lock">
+          <i class="bi bi-plus-circle me-1"></i><span id="confirmExtendText">Lock longer</span></button>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Panic seal -->
+  <div class="modal fade modal-custom" id="sealModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title"><i class="bi bi-shield-lock-fill me-2"></i>Panic seal</h5></div>
+      <div class="modal-body">
+        <p>Lock everything that is unlocked right now, again. Unlocked picture files are removed from
+          the unlocked folder (the pictures stay safe inside the database). How long?</p>
+        <div class="preset-row mb-3" id="sealPresets">
+          <button class="btn btn-secondary btn-sm" type="button" data-seconds="3600" title="Seal for one hour">1 hour</button>
+          <button class="btn btn-secondary btn-sm" type="button" data-seconds="86400" title="Seal for one day">1 day</button>
+          <button class="btn btn-secondary btn-sm" type="button" data-seconds="604800" title="Seal for one week">1 week</button>
+          <button class="btn btn-secondary btn-sm" type="button" data-seconds="2592000" title="Seal for 30 days">30 days</button>
+        </div>
+        <div class="input-group">
+          <input type="number" min="1" class="form-control" id="sealAmount" value="1" title="How many to seal for">
+          <select class="form-select" id="sealUnit" title="Minutes, hours, days or weeks">
+            <option value="60">minutes</option><option value="3600">hours</option>
+            <option value="86400" selected>days</option><option value="604800">weeks</option>
+          </select>
+        </div>
+        <div class="alert alert-danger mt-3 d-none" id="sealError" role="alert"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" title="Leave everything as it is">Cancel</button>
+        <button class="btn btn-primary" id="confirmSeal" title="Lock everything again">
+          <i class="bi bi-shield-lock me-1"></i><span id="confirmSealText">Seal everything</span></button>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- Settings -->
+  <div class="modal fade modal-custom" id="settingsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"><div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-gear-fill me-2"></i>Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" title="Close settings"></button>
+      </div>
+      <div class="modal-body">
+        <p class="small">Your settings are stored encrypted inside the database.</p>
+        <label class="form-label" for="setTimeMode">Where Time Lock gets the time</label>
+        <select class="form-select mb-1" id="setTimeMode" title="Choose how the current time is found">
+          <option value="auto">Internet when possible, otherwise the protected computer clock (recommended)</option>
+          <option value="system_only">Protected computer clock only (never uses the internet)</option>
+          <option value="network_only">Internet only (nothing locks or unlocks without it)</option>
+        </select>
+        <div class="form-text mb-3">The protected computer clock ignores sudden changes to the clock
+          while the computer is running, and cannot be wound backwards.</div>
+
+        <label class="form-label" for="setUrl">Time website</label>
+        <input class="form-control mb-3" id="setUrl" title="A secure (https) website used only to read the time">
+
+        <label class="form-label" for="setDefaultMinutes">Default lock length (minutes)</label>
+        <input type="number" min="1" class="form-control mb-1" id="setDefaultMinutes"
+               title="How far ahead the Lock something window starts. One week is 10080 minutes.">
+        <div class="form-text mb-3">One week is 10080. A short number is handy while testing.</div>
+
+        <label class="form-label" for="setMaxRandom">Maximum Random Days</label>
+        <input type="number" min="1" max="9999" class="form-control mb-1" id="setMaxRandom"
+               title="The Random option picks an unlock moment between now and this many days away">
+        <div class="form-text mb-3">Between 1 and 9999. Anything that is not a number is saved as 30.</div>
+
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="setSound"
+                 title="Play a ding when something unlocks">
+          <label class="form-check-label" for="setSound">Play a ding when an item unlocks</label>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <label class="form-label mb-0" for="setVolume">Volume</label>
+          <input type="range" class="form-range volume-range" min="0" max="100" id="setVolume"
+                 title="How loud the ding is">
+          <button class="btn btn-secondary btn-sm" type="button" id="testSound" title="Play the ding now">
+            <i class="bi bi-volume-up-fill me-1"></i>Test</button>
+        </div>
+
+        <h6 class="section-title mt-4"><i class="bi bi-stars"></i>Extras</h6>
+        <div class="form-check form-switch mb-1">
+          <input class="form-check-input" type="checkbox" role="switch" id="setBlind"
+                 title="Encrypt the names of new items as well, shown only after they unlock">
+          <label class="form-check-label" for="setBlind">Blind mode</label>
+        </div>
+        <div class="form-text mb-3">New items get their names encrypted too. The list shows "Hidden item 1,
+          2, 3" and each name appears only when that item unlocks.</div>
+
+        <label class="form-label" for="decoyCount">Decoy locks</label>
+        <div class="input-group">
+          <input type="number" min="1" max="10" class="form-control" id="decoyCount" value="3"
+                 title="How many decoys to add (1 to 10)">
+          <button class="btn btn-secondary" type="button" id="addDecoys"
+                  title="Add fake locked items that look exactly like real ones">
+            <i class="bi bi-incognito me-1"></i>Add decoys</button>
+        </div>
+        <div class="form-text">Fake locked items that look exactly like real ones. Nobody, not even you,
+          can tell them apart until they open, and they hold nothing.</div>
+
+        <div class="alert alert-danger mt-3 d-none" id="settingsError" role="alert"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary me-auto" id="forgetPrefs"
+                title="Forget the remembered time choice, tab and folder on this browser">
+          <i class="bi bi-arrow-counterclockwise me-1"></i>Forget my remembered choices</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal" title="Close without saving">Cancel</button>
+        <button class="btn btn-primary" id="saveSettings" title="Save these settings">
+          <i class="bi bi-check-lg me-1"></i>Save</button>
+      </div>
+    </div></div>
+  </div>
+
+  <audio id="dingSound" src="{{ url_for('static', filename='sfx/ding.mp3') }}" preload="auto"></audio>
+
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/theme-switcher.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/time_lock.js') }}"></script>
+</body>
+</html>

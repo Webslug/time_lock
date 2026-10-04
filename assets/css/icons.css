@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Bootstrap Icons — sizing/coloring helpers
+   ========================================================================== */
+
+.icon-tile {
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius);
+  font-size: 1.4rem;
+  box-shadow: var(--bevel-shadow);
+}
+
+.icon-muted {
+  color: var(--text-muted);
+}
+
+.icon-lg {
+  font-size: 1.75rem;
+}
+
+.icon-xl {
+  font-size: 2.5rem;
+}

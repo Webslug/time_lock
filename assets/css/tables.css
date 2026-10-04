@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+.table-custom {
+  /* Bootstrap's .table reads its own --bs-table-* custom properties for
+     bg/color/stripe/hover, defaulting to light-mode values since we never
+     set data-bs-theme. Overriding them here (not just --text/--surface)
+     is what actually stops every dark theme's table from rendering white. */
+  --bs-table-bg: var(--surface);
+  --bs-table-color: var(--text);
+  --bs-table-striped-bg: var(--surface-alt);
+  --bs-table-striped-color: var(--text);
+  --bs-table-hover-bg: var(--surface-alt);
+  --bs-table-hover-color: var(--text);
+  --bs-table-border-color: var(--border);
+
+  color: var(--text);
+  border-color: var(--border);
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.table-custom thead th {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background-color: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-3);
+}
+
+.table-custom tbody td {
+  padding: var(--space-3);
+  border-color: var(--border);
+  vertical-align: middle;
+}
+
+/* Striping/hover now come from --bs-table-striped-bg / --bs-table-hover-bg
+   above — Bootstrap applies those itself, no manual nth-of-type override
+   needed (and the old one was a same-color no-op against --bs-table-bg). */
+
+.table-responsive-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--bevel-shadow);
+  overflow: hidden;
+}

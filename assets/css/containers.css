@@ -1,0 +1,145 @@
+/* ==========================================================================
+   Containers, section layout, footer, theme switcher, tooltips
+   ========================================================================== */
+
+.page-section {
+  padding: var(--space-6) 0;
+}
+
+.page-section-alt {
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.section-heading h2 {
+  margin-top: var(--space-2);
+}
+
+.section-heading p {
+  color: var(--text-muted);
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.panel {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--bevel-shadow);
+}
+
+/* Aero Blue glass */
+[data-theme="aero-blue"] .panel,
+[data-theme="aero-blue"] .page-section-alt {
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+.footer-custom {
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: var(--space-5) 0;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Theme switcher */
+.theme-switcher .dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-swatch {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid var(--border-strong);
+  background-color: var(--accent);
+}
+
+.theme-swatch-slate        { background-color: #86a8bb; }
+.theme-swatch-aero-blue    { background-color: #38bdf8; }
+.theme-swatch-dark-mode    { background-color: #22d3ee; }
+.theme-swatch-baby-pink    { background-color: #ec4899; }
+.theme-swatch-lilac        { background-color: #a78bfa; }
+.theme-swatch-regal        { background-color: #d4af37; }
+.theme-swatch-racing-green { background-color: #2f6b45; }
+.theme-swatch-orange-black { background-color: #f97316; }
+.theme-swatch-regal-blue   { background-color: #3b5bdb; }
+.theme-swatch-rose         { background-color: #fb7185; }
+
+/* Tooltips — used on every control per AGENTS.md */
+.tooltip-inner {
+  background-color: var(--surface-raised);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.85rem;
+  font-size: 0.8rem;
+  box-shadow: var(--shadow);
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before { border-top-color: var(--border); }
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before { border-bottom-color: var(--border); }
+.tooltip.bs-tooltip-start .tooltip-arrow::before { border-left-color: var(--border); }
+.tooltip.bs-tooltip-end .tooltip-arrow::before { border-right-color: var(--border); }
+
+/* ---- Time Lock layout ---- */
+.wide-90 {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-main {
+  padding-top: var(--space-4);
+}
+
+
+.text-accent {
+  color: var(--accent);
+}
+
+.clock-badge {
+  color: var(--text-muted);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: help;
+}
+
+.clock-badge.clock-network {
+  color: var(--success);
+}
+
+.clock-badge.clock-waiting {
+  color: var(--warning);
+}
+
+
+.empty-note {
+  margin: 0;
+}
+
+.secret-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+
+.problem-page code {
+  word-break: break-all;
+}

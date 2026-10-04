@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aero-blue">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Lock needs a little help</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/heart.ico') }}">
+  <script src="{{ url_for('static', filename='js/theme-init.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+  <main class="wide-90 page-main problem-page">
+    <section class="panel">
+      <h1 class="h3 mb-3"><i class="bi bi-heart-fill me-2"></i>Time Lock needs a little help</h1>
+      <p class="lead">Don't worry. Nothing has been changed or lost, and nothing was deleted.</p>
+
+      {% if problem.kind == "missing_key" %}
+      <p>Your locked items are safe in the database, but the <strong>key file</strong> that goes
+        with them cannot be found. Without it nothing can be opened, and a new key must
+        <em>not</em> be made, because that would lock your items away forever.</p>
+      <p>The key file should be here:</p>
+      <p><code>{{ key_path }}</code></p>
+      <ol>
+        <li>Look for a file called <code>vault.key</code> in a backup, on your USB stick, or in the
+          recycle bin or trash.</li>
+        <li>Put it back at the place shown above.</li>
+        <li>Reload this page.</li>
+      </ol>
+      {% elif problem.kind == "damaged_key" %}
+      <p>The <strong>key file</strong> is there, but it looks damaged (the wrong size).</p>
+      <p><code>{{ key_path }}</code></p>
+      <ol>
+        <li>If you have a backup copy of <code>vault.key</code>, put that copy in its place.</li>
+        <li>Reload this page.</li>
+      </ol>
+      {% else %}
+      <p>The <strong>database file</strong> could not be opened. It may be damaged.</p>
+      <p><code>{{ db_path }}</code></p>
+      <ol>
+        <li>If you have a backup copy of the database, put it back and reload.</li>
+        <li>Please do not delete the file. A repair may still be possible.</li>
+      </ol>
+      {% endif %}
+
+      <p class="text-muted mb-0">Technical note: {{ problem }}</p>
+    </section>
+  </main>
+</body>
+</html>

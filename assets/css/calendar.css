@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Large month calendar used by the Add window
+   ========================================================================== */
+
+.calendar {
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-3);
+}
+
+.calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-1);
+}
+
+.calendar-dow {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding-bottom: var(--space-1);
+}
+
+.calendar-day {
+  aspect-ratio: 1.5 / 1;
+  min-height: 2.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+  color: var(--text);
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+.calendar-day:hover:not(:disabled) {
+  background-color: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.calendar-day:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.calendar-day.is-today {
+  border-color: var(--accent);
+}
+
+.calendar-day.is-selected {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-on-accent);
+  font-weight: 700;
+}
+
+.calendar-blank {
+  visibility: hidden;
+}
+
+/* Time of day row above the calendar */
+.time-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.time-row.is-random {
+  opacity: 0.45;
+}
+
+.time-row .time-input {
+  width: 100%;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.preset-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.test-presets {
+  display: contents;
+}
+
+.preset-row .btn.is-active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-on-accent);
+}
+
+.calendar.is-random {
+  opacity: 0.45;
+}
+
+.add-error {
+  margin-bottom: 0;
+  padding: var(--space-2) var(--space-3);
+}
+
+.add-footer {
+  flex-wrap: nowrap;
+}
+
+.add-footer .btn {
+  white-space: nowrap;
+}
+
+/* Messages beside the Lock button follow the theme, not Bootstrap's pastel defaults */
+.add-error.alert-info {
+  background-color: var(--info-soft);
+  border-color: var(--info);
+  color: var(--text);
+}
+
+.add-error.alert-danger {
+  background-color: var(--danger-soft);
+  border-color: var(--danger);
+  color: var(--text);
+}

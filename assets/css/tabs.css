@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Tabs & Pills
+   ========================================================================== */
+
+.nav-tabs-custom {
+  border-bottom: 1px solid var(--border);
+  gap: var(--space-2);
+}
+
+.nav-tabs-custom .nav-link {
+  color: var(--text-muted);
+  /* border-strong on all sides but the bottom: each tab is its own
+     bordered, rounded-top folder-tab shape, not a borderless flat link.
+     Bottom stays borderless on every state, active included — no
+     underline, selection reads through background/color/shadow instead. */
+  border: 1px solid var(--border-strong);
+  border-bottom: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  box-shadow: var(--bevel-shadow);
+  transition: box-shadow var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.nav-tabs-custom .nav-link:hover {
+  color: var(--text);
+  background-color: var(--surface-alt);
+  box-shadow: var(--bevel-shadow-hover);
+}
+
+.nav-tabs-custom .nav-link.active {
+  color: var(--accent);
+  background-color: var(--surface);
+  /* Elevated: bevel-hover's highlight plus the general lifted --shadow,
+     so the selected tab visibly sits above the others. */
+  box-shadow: var(--bevel-shadow-hover), var(--shadow);
+}
+
+.tab-content-custom {
+  background-color: var(--surface);
+  /* Square, not rounded — the rounding belongs to the tab buttons above
+     (top-rounded/bottom-square, per .nav-tabs-custom .nav-link), not the
+     content panel itself. border-strong for the same reason as the tabs:
+     plain --border was too subtle to read as a visible edge here. */
+  border: 1px solid var(--border-strong);
+  border-radius: 0;
+  padding: var(--space-4);
+  box-shadow: var(--bevel-shadow);
+}
+
+.nav-pills-custom .nav-link {
+  color: var(--text-muted);
+  border-radius: var(--radius-pill);
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  transition: box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.nav-pills-custom .nav-link:hover {
+  box-shadow: var(--bevel-shadow-hover);
+}
+
+.nav-pills-custom .nav-link.active {
+  background-color: var(--accent);
+  color: var(--text-on-accent);
+  box-shadow: var(--bevel-shadow);
+}
+
+/* Aero Blue glass */
+[data-theme="aero-blue"] .tab-content-custom {
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+/* Plain Bootstrap tabs follow the active theme */
+.nav-tabs {
+  --bs-nav-link-color: var(--text-muted);
+  --bs-nav-link-hover-color: var(--text);
+  --bs-nav-tabs-border-color: var(--border);
+  --bs-nav-tabs-link-hover-border-color: var(--border) var(--border) var(--border);
+  --bs-nav-tabs-link-active-color: var(--text);
+  --bs-nav-tabs-link-active-bg: var(--surface-alt);
+  --bs-nav-tabs-link-active-border-color: var(--border) var(--border) var(--surface-alt);
+}

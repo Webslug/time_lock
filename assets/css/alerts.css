@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Alerts & Toasts
+   ========================================================================== */
+
+.alert-custom {
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  padding: var(--space-3) var(--space-4);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-shadow: var(--bevel-shadow);
+}
+
+.alert-custom i {
+  font-size: 1.2rem;
+}
+
+.alert-success-custom { background-color: var(--success-soft); border-color: var(--success); color: var(--success); }
+.alert-warning-custom { background-color: var(--warning-soft); border-color: var(--warning); color: var(--warning); }
+.alert-danger-custom  { background-color: var(--danger-soft);  border-color: var(--danger);  color: var(--danger); }
+.alert-info-custom    { background-color: var(--info-soft);    border-color: var(--info);    color: var(--info); }
+
+.toast-custom {
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--bevel-shadow), var(--shadow-lg);
+}
+
+.toast-custom .toast-header {
+  background-color: var(--surface-alt);
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.badge-custom {
+  border-radius: var(--radius-pill);
+  padding: 0.4em 0.85em;
+  font-weight: 600;
+  font-size: 0.75rem;
+  box-shadow: var(--bevel-shadow);
+}
+
+/* Aero Blue glass */
+[data-theme="aero-blue"] .toast-custom,
+[data-theme="aero-blue"] .alert-custom {
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+/* Banners shown at the top of the page follow the active theme */
+#alerts .alert-success,
+#statusBanners .alert-success {
+  background-color: var(--success-soft);
+  border-color: var(--success);
+  color: var(--text);
+}
+
+#alerts .alert-info {
+  background-color: var(--info-soft);
+  border-color: var(--info);
+  color: var(--text);
+}
+
+#alerts .alert-warning,
+#statusBanners .alert-warning {
+  background-color: var(--warning-soft);
+  border-color: var(--warning);
+  color: var(--text);
+}
+
+#alerts .alert-danger,
+#statusBanners .alert-danger {
+  background-color: var(--danger-soft);
+  border-color: var(--danger);
+  color: var(--text);
+}

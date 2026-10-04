@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Dividers & Progress bars
+   ========================================================================== */
+
+hr.divider-custom {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--space-5) 0;
+}
+
+.divider-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-faint);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: var(--space-5) 0;
+}
+
+.divider-label::before,
+.divider-label::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--border);
+}
+
+.progress-custom {
+  background-color: var(--surface-alt);
+  border-radius: var(--radius-pill);
+  height: 0.75rem;
+  overflow: hidden;
+}
+
+.progress-custom .progress-bar {
+  background-color: var(--accent);
+}
+
+.progress-w-75 { width: 75%; }

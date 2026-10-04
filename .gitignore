@@ -1,0 +1,13 @@
+db/*
+docs/
+old_archive/
+backups/
+!db/.gitkeep
+logs/
+unlocked/
+__pycache__/
+*.pyc
+
+push.sh
+AGENTS.md
+CLAUDE.md

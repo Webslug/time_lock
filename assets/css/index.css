@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Master stylesheet — imports only. Load AFTER bootstrap.min.css and
+   bootstrap-icons.css, BEFORE any page-specific override.
+   The Space Grotesk / Inter font stylesheet is loaded via <link> in
+   index.html's <head> (with preconnect), NOT @import here — an @import
+   can only be discovered after this file itself is fetched and parsed,
+   which serializes the whole font-loading chain instead of letting it
+   start in parallel with everything else.
+   ========================================================================== */
+
+@import "variables.css";
+@import "typography.css";
+@import "navbar.css";
+@import "buttons.css";
+@import "cards.css";
+@import "forms.css";
+@import "tables.css";
+@import "tabs.css";
+@import "calendar.css";
+@import "lists.css";
+@import "accordion.css";
+@import "alerts.css";
+@import "dialogs.css";
+@import "breadcrumbs.css";
+@import "dividers.css";
+@import "icons.css";
+@import "containers.css";

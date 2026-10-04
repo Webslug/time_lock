@@ -1,0 +1,96 @@
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.form-control,
+.form-select {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  box-shadow: var(--bevel-shadow-inset);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:hover,
+.form-select:hover {
+  box-shadow: var(--bevel-shadow-inset-hover);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--surface);
+  border-color: var(--accent);
+  color: var(--text);
+  box-shadow: var(--bevel-shadow-inset-hover), 0 0 0 4px var(--accent-soft);
+}
+
+.form-control::placeholder {
+  color: var(--text-faint);
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.form-text {
+  color: var(--text-faint);
+}
+
+.form-check-input {
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.35em;
+}
+
+.form-check-input[type="radio"] {
+  border-radius: 50%;
+}
+
+.form-check-input:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.form-switch .form-check-input {
+  border-radius: var(--radius-pill);
+}
+
+.input-group-text {
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  box-shadow: var(--bevel-shadow-inset);
+}
+
+.form-range::-webkit-slider-thumb {
+  background-color: var(--accent);
+}
+
+.form-range::-moz-range-thumb {
+  background-color: var(--accent);
+}
+
+.form-floating > label {
+  color: var(--text-faint);
+}
+
+/* The "Browse..." button inside a file chooser */
+.form-control::file-selector-button {
+  background-color: var(--surface-raised);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+  background-color: var(--surface-alt);
+}

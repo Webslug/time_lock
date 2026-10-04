@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Navbar — the one element that stays square (radius: 0) per AGENTS.md,
+   everything it contains stays rounded.
+   ========================================================================== */
+
+.navbar-custom {
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius-navbar);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+}
+
+.navbar-custom .navbar-brand {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.navbar-custom .navbar-brand i {
+  color: var(--accent);
+  margin-right: var(--space-2);
+}
+
+.navbar-custom .nav-link {
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link:focus {
+  color: var(--text);
+  background-color: var(--surface-alt);
+}
+
+.navbar-custom .nav-link.active {
+  color: var(--text);
+  background-color: var(--accent-soft);
+}
+
+.navbar-custom .dropdown-menu {
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.navbar-custom .dropdown-item {
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.85rem;
+  font-weight: 500;
+}
+
+.navbar-custom .dropdown-item:hover,
+.navbar-custom .dropdown-item:focus {
+  background-color: var(--accent-soft);
+  color: var(--text);
+}
+
+.navbar-custom .dropdown-divider {
+  border-color: var(--border);
+}
+
+.navbar-custom .navbar-toggler {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.navbar-custom .navbar-toggler:focus {
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Aero Blue glass — translucent, blurred navbar over the sky-gradient body */
+[data-theme="aero-blue"] .navbar-custom {
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}
+
+[data-theme="aero-blue"] .navbar-custom .dropdown-menu {
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}

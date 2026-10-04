@@ -1,0 +1,64 @@
+/* ==========================================================================
+   Accordion
+   ========================================================================== */
+
+.accordion-custom .accordion-item {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius) !important;
+  box-shadow: var(--bevel-shadow);
+  overflow: hidden;
+  margin-bottom: var(--space-2);
+  transition: box-shadow var(--transition-fast);
+}
+
+.accordion-custom .accordion-item:hover {
+  box-shadow: var(--bevel-shadow-hover);
+}
+
+.accordion-custom .accordion-button {
+  background-color: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  font-family: var(--font-heading);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: none;
+}
+
+.accordion-custom .accordion-button:not(.collapsed) {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  /* Bootstrap's own .accordion-button:not(.collapsed) rule adds an inset
+     box-shadow as a separator line above the body — we never override
+     box-shadow for this exact selector, so it stacks with accordion-body's
+     own border-top just below it, reading as a double border. */
+  box-shadow: none;
+}
+
+.accordion-custom .accordion-button:focus {
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.accordion-custom .accordion-button::after {
+  filter: invert(1) grayscale(1) brightness(1.8);
+}
+
+/* Light themes: Bootstrap's chevron is already dark — see the matching
+   note on .btn-close in dialogs.css. */
+[data-theme="aero-blue"] .accordion-custom .accordion-button::after,
+[data-theme="baby-pink"] .accordion-custom .accordion-button::after {
+  filter: none;
+}
+
+.accordion-custom .accordion-body {
+  background-color: var(--surface);
+  color: var(--text-muted);
+  padding: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+/* Aero Blue glass */
+[data-theme="aero-blue"] .accordion-custom .accordion-item {
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}

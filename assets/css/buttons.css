@@ -1,0 +1,233 @@
+/* ==========================================================================
+   Buttons — large and chunky by default, per AGENTS.md. No small buttons.
+   ========================================================================== */
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  border-radius: var(--radius);
+  padding: 0.85rem 1.75rem;
+  font-size: 1rem;
+  box-shadow: var(--bevel-shadow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn:hover {
+  box-shadow: var(--bevel-shadow-hover);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: var(--bevel-shadow);
+}
+
+.btn-lg {
+  padding: 1.1rem 2.25rem;
+  font-size: 1.1rem;
+  border-radius: var(--radius-lg);
+}
+
+.btn-sm {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-on-accent);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: var(--bevel-shadow-hover), 0 0 0 4px var(--accent-soft);
+}
+
+.btn-secondary {
+  background-color: var(--surface-alt);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: var(--surface-raised);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.btn-outline-primary {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent);
+  color: var(--text-on-accent);
+}
+
+.btn-success { background-color: var(--success); border-color: var(--success); color: #06210c; }
+.btn-warning { background-color: var(--warning); border-color: var(--warning); color: #231a02; }
+.btn-danger  { background-color: var(--danger);  border-color: var(--danger);  color: #2a0a08; }
+.btn-info    { background-color: var(--info);    border-color: var(--info);    color: #041627; }
+
+.btn-pill {
+  border-radius: var(--radius-pill);
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.btn:disabled,
+.btn.disabled {
+  opacity: 0.5;
+  transform: none;
+}
+
+.btn-group .btn {
+  border-radius: var(--radius-sm);
+}
+
+/* Aero Blue — classic Vista glass-pill gloss on EVERY button variant, not
+   just primary: a highlight band across the top half fading to a faint
+   shade at the bottom. This replaces the plain bevel-shadow top highlight
+   line (which reads as a stray white border on solid-colored buttons like
+   success/warning/danger) with an actual graduated sheen, so it looks like
+   glass on every variant instead of glass on one and a bug on the rest. */
+[data-theme="aero-blue"] .btn {
+  box-shadow: var(--shadow-sm);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0.08) 48%,
+    rgba(255, 255, 255, 0) 52%,
+    rgba(17, 48, 79, 0.08) 100%
+  );
+}
+
+[data-theme="aero-blue"] .btn:hover,
+[data-theme="aero-blue"] .btn:focus {
+  box-shadow: var(--shadow);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.12) 48%,
+    rgba(255, 255, 255, 0) 52%,
+    rgba(17, 48, 79, 0.08) 100%
+  );
+}
+
+[data-theme="aero-blue"] .btn-primary:hover,
+[data-theme="aero-blue"] .btn-primary:focus {
+  box-shadow: var(--shadow), 0 0 0 4px var(--accent-soft);
+}
+
+[data-theme="aero-blue"] .btn:active {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Baby Pink — nursery pink-white gradient, same gloss mechanism as Aero Blue */
+[data-theme="baby-pink"] .btn {
+  box-shadow: var(--shadow-sm);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.15) 48%,
+    rgba(255, 255, 255, 0) 52%,
+    rgba(74, 31, 52, 0.05) 100%
+  );
+}
+
+[data-theme="baby-pink"] .btn:hover,
+[data-theme="baby-pink"] .btn:focus {
+  box-shadow: var(--shadow);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.2) 48%,
+    rgba(255, 255, 255, 0) 52%,
+    rgba(74, 31, 52, 0.05) 100%
+  );
+}
+
+[data-theme="baby-pink"] .btn-primary:hover,
+[data-theme="baby-pink"] .btn-primary:focus {
+  box-shadow: var(--shadow), 0 0 0 4px var(--accent-soft);
+}
+
+[data-theme="baby-pink"] .btn:active {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Regal — velvet crimson gradient with gold text and a soft gold glow,
+   not a hard-edged gold ring (Kim: the ring "did not invoke the majestic
+   motive"). The border stays the same color as the fill so no contrasting
+   line is visible — the gold reads through the glow and the text instead. */
+[data-theme="regal"] .btn-primary {
+  background-color: var(--regal-red);
+  background-image: linear-gradient(160deg, var(--regal-red-hover) 0%, var(--regal-red) 55%, var(--regal-red-active) 100%);
+  border-color: var(--regal-red);
+  color: var(--accent);
+  box-shadow: var(--bevel-shadow), 0 0 16px rgba(212, 175, 55, 0.2);
+}
+
+[data-theme="regal"] .btn-primary:hover,
+[data-theme="regal"] .btn-primary:focus {
+  background-image: linear-gradient(160deg, var(--regal-red-hover) 0%, var(--regal-red) 45%, var(--regal-red-active) 100%);
+  border-color: var(--regal-red-hover);
+  color: var(--accent-hover);
+  box-shadow: var(--bevel-shadow-hover), 0 0 24px rgba(212, 175, 55, 0.32);
+}
+
+[data-theme="regal"] .btn-primary:active {
+  background-color: var(--regal-red-active);
+}
+
+/* Rose — a deep red gradient across the primary button, per Kim's feedback
+   that the theme needed to read as red, not just tinted. */
+[data-theme="rose"] .btn-primary {
+  background-image: linear-gradient(160deg, var(--accent-hover) 0%, var(--accent) 55%, var(--accent-active) 100%);
+}
+
+[data-theme="rose"] .btn-primary:hover,
+[data-theme="rose"] .btn-primary:focus {
+  background-image: linear-gradient(160deg, var(--accent-hover) 0%, var(--accent) 45%, var(--accent-active) 100%);
+  box-shadow: var(--bevel-shadow-hover), 0 0 0 4px var(--accent-soft);
+}
+
+/* Regal Blue — a brushed-steel diagonal sheen over the sapphire fill,
+   evoking gunmetal/chrome trim rather than a glossy candy highlight;
+   pairs with the steel-silver --border on every other bordered control
+   for one consistent "admiral's uniform" identity. */
+[data-theme="regal-blue"] .btn-primary {
+  background-image: linear-gradient(
+    155deg,
+    rgba(226, 232, 240, 0.3) 0%,
+    rgba(226, 232, 240, 0.06) 38%,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 0.22) 100%
+  );
+  border-color: var(--accent-active);
+}
+
+[data-theme="regal-blue"] .btn-primary:hover,
+[data-theme="regal-blue"] .btn-primary:focus {
+  background-image: linear-gradient(
+    155deg,
+    rgba(226, 232, 240, 0.4) 0%,
+    rgba(226, 232, 240, 0.1) 38%,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 0.22) 100%
+  );
+  border-color: var(--accent-hover);
+  box-shadow: var(--bevel-shadow-hover), 0 0 0 4px var(--accent-soft);
+}

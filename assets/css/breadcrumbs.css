@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Breadcrumbs & Pagination
+   ========================================================================== */
+
+.breadcrumb-custom {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.6rem 1.25rem;
+  display: inline-flex;
+  box-shadow: var(--bevel-shadow);
+}
+
+.breadcrumb-custom .breadcrumb-item a {
+  color: var(--text-muted);
+}
+
+.breadcrumb-custom .breadcrumb-item.active {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.breadcrumb-custom .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--text-faint);
+}
+
+.pagination-custom .page-link {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  margin: 0 0.15rem;
+  box-shadow: var(--bevel-shadow);
+  transition: box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.pagination-custom .page-item.active .page-link {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-on-accent);
+}
+
+.pagination-custom .page-link:hover {
+  background-color: var(--surface-alt);
+  color: var(--text);
+  box-shadow: var(--bevel-shadow-hover);
+}

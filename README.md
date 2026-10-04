@@ -378,13 +378,24 @@ only* in Settings, or start with `--offline`, to make none.
 
 ## Contributing
 
-Issues and pull requests are welcome once the repository is public. Please keep
-dependencies minimal, keep CSS in the modular files under `assets/css/`, and add a test
+Issues and pull requests are welcome. By submitting a contribution you agree that it is
+provided under the Apache License 2.0, the same as the rest of the project (section 5 of
+the licence). Please keep dependencies minimal, keep CSS in the modular files under `assets/css/`, and add a test
 for any change to locking, the clock or the guards.
 
 ## License
 
-To be decided before the first public release.
+Time Lock is released under the **Apache License 2.0**. The full text is in the
+[`LICENCE`](LICENCE) file, and a plain-language summary is at
+<https://www.apache.org/licenses/LICENSE-2.0>.
+
+In short, you are free to use, copy, change and share Time Lock, including in your own
+projects, as long as you keep the licence and copyright notices. It comes with **no warranty**
+and no liability (see "Your responsibility" above), and it includes a patent grant from the
+contributors.
+
+**Bundled and required parts keep their own licences:** Bootstrap and Bootstrap Icons (MIT),
+Flask (BSD 3-Clause) and Pillow (MIT-CMU). They are not changed by this project's licence.
 
 ## Help and support
 

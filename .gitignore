@@ -6,6 +6,7 @@ backups/
 logs/
 unlocked/
 __pycache__/
+.git/
 *.pyc
 
 push.sh

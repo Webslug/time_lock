@@ -386,7 +386,7 @@ for any change to locking, the clock or the guards.
 ## License
 
 Time Lock is released under the **Apache License 2.0**. The full text is in the
-[`LICENCE`](LICENCE) file, and a plain-language summary is at
+[`LICENSE`](LICENSE) file, and a plain-language summary is at
 <https://www.apache.org/licenses/LICENSE-2.0>.
 
 In short, you are free to use, copy, change and share Time Lock, including in your own
